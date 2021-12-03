@@ -2,19 +2,23 @@
 
 module Logic =
 
+  /// Type containing the possible changes between measurements
   type Change =
     | NoChange
     | Increase
     | Decrease
 
+  /// Given a list of depth measurements, creates a list of changes showing if the measurement increased or decreased
   let calcIncreases (depths: int list) =
     let rec calcIncreasesImpl prev depths increases =
       match depths with
       | [] -> increases
       | x :: xs when x > prev -> calcIncreasesImpl x xs (Increase :: increases)
-      | x :: xs -> calcIncreasesImpl x xs (Decrease :: increases)
+      | x :: xs when x < prev -> calcIncreasesImpl x xs (Decrease :: increases)
+      | x :: xs -> calcIncreasesImpl x xs (NoChange :: increases)
     calcIncreasesImpl depths.[0] depths.[1..] [NoChange]
 
+  /// Given a list of changes, returns the number of changes that were increases
   let countIncreases depths =
     depths
     |> List.sumBy (function | Increase -> 1 | _ -> 0)

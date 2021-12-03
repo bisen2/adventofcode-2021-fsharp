@@ -3,6 +3,7 @@
 module Logic =
   open Day2_Part1.Logic
 
+  /// Type containing positional information
   type Position =
     { Horizontal: int
       Depth: int
@@ -12,6 +13,7 @@ module Logic =
         Depth = 0
         Aim = 0 }
 
+  /// Given a current position and instruction, generates the new position when that instruction is applied
   let updatePosition pos instr =
     match instr with
     | Down x -> { pos with Aim = pos.Aim + x }

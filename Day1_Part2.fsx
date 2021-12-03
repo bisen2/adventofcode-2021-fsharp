@@ -3,6 +3,7 @@
 module Logic =
   open Day1_Part1.Logic
 
+  /// Given a list of integers, generates the three-value rolling sum of them
   let threeMeasSums values =
     let rec threeMeasSumImpl values sums =
       match values with

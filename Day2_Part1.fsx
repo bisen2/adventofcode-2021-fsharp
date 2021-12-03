@@ -2,11 +2,13 @@
 
 module Logic =
 
+  /// Type containing the possible instructions that can be executed
   type Instruction =
     | Forward of int
     | Down of int
     | Up of int
 
+  /// Type containing positional information
   type Position =
     { Horizontal: int
       Depth: int }
@@ -14,12 +16,14 @@ module Logic =
       { Horizontal = 0
         Depth = 0 }
 
+  /// Given a current position and instruction, generates the new position when that instruction is applied
   let updatePosition pos instr =
     match instr with
     | Forward x -> { pos with Horizontal = pos.Horizontal + x }
     | Down x -> { pos with Depth = pos.Depth + x }
     | Up x -> { pos with Depth = pos.Depth - x }
 
+  /// Given a string representation of an instruction, parses it into an actual Instruction type
   let parseInstruction instr =
     match instr with
     | "forward", x -> Forward x
