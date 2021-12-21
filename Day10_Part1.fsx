@@ -12,12 +12,12 @@ module Logic =
     | Corrupted of IllegalCharacter: char
 
   let verify input =
-    let rec verifyImpl remaining (openChunks: ChunkType list) =
+    let rec verifyImpl remaining openChunks =
       match openChunks, remaining with
-      | _,          '('::xs -> verifyImpl xs (Paren :: openChunks)
+      | _,          '('::xs -> verifyImpl xs (Paren  :: openChunks)
       | _,          '['::xs -> verifyImpl xs (Square :: openChunks)
-      | _,          '{'::xs -> verifyImpl xs (Curly :: openChunks)
-      | _,          '<'::xs -> verifyImpl xs (Angle :: openChunks)
+      | _,          '{'::xs -> verifyImpl xs (Curly  :: openChunks)
+      | _,          '<'::xs -> verifyImpl xs (Angle  :: openChunks)
       | Paren::cs,  ')'::xs -> verifyImpl xs cs
       | Square::cs, ']'::xs -> verifyImpl xs cs
       | Curly::cs,  '}'::xs -> verifyImpl xs cs
